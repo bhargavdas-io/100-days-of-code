@@ -22,9 +22,12 @@ button = driver.find_element(By.XPATH, value="/html/body/div/main/div[2]/div[1]/
 
 username.send_keys(ID)
 password.send_keys(PASS)
-time.sleep(10)
+time.sleep(2)
 button.click()
 
+time.sleep(2)
+
+driver.get(url=JOB_LINK)
 
 
 
