@@ -47,26 +47,25 @@ except NoSuchElementException:
     sleep(2)
     next_b = driver.find_element(By.XPATH, value='/html/body/div[2]/div/div/div[1]/div/div[3]/button')
     next_b.click()
-
+sleep(10)
 captcha = input("Press enter after solving captcha and entering OTP, if any.")
-next_button_2 = driver.find_element(By.XPATH, value="/html/body/div[2]/div/div[1]/div[1]/div/div[4]/button")
-next_button_2.click()
+print("Click Next and press enter....")
 sleep(2)
-send_mail_button = driver.find_element(By.XPATH, value="/html/body/div[2]/div/div/div/div[1]/div/div[2]/button")
-send_mail_button.click()
-sleep(2)
-
+print("Click on Send mail.")
 mail_otp = input("Press enter after providing the e-mail OTP")
-sleep(2)
-next_button_3 = driver.find_element(By.XPATH, value="/html/body/div[2]/div/div/div/div[1]/div/div[2]/div[2]/button")
-next_button_3.click()
 sleep(2)
 
 location_button = driver.find_element(By.XPATH, value="/html/body/div[2]/div/div/div/div/div[3]/button[1]")
 location_button.click()
 sleep(10)
 
-
 notification_button = driver.find_element(By.XPATH, value="/html/body/div[2]/div/div/div/div/div[3]/button[2]")
 notification_button.click()
-sleep(2)
+sleep(25)
+for n in range(100):
+    sleep(5)
+    print("Auto Liking...")
+    like = driver.find_element(By.XPATH, value='/html/body/div[1]/div/div[1]/div/main/div[1]/div/div/div/div[1]/div[1]/div/div[3]/div/div[4]/button')
+    like.click()
+print("Liked 100 Tinder Profiles!")
+
