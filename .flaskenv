@@ -1,2 +1,2 @@
-FLASK_APP=server
+FLASK_APP=main
 FLASK_DEBUG=1
