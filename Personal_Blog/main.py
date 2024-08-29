@@ -1,5 +1,4 @@
-from flask import Flask
-from flask import render_template
+from flask import Flask, render_template, request
 import requests
 from posts import Post
 
@@ -10,7 +9,8 @@ post_objs = []
 post = requests.get(url=URL).json()
 
 for items in post:
-    post_obj = Post(items["id"], items["title"], items["author"], items["date"], items["summary"], items["body"], items["image_url"])
+    post_obj = Post(items["id"], items["title"], items["author"], items["date"], items["summary"], items["body"],
+                    items["image_url"])
     post_objs.append(post_obj)
 
 
@@ -24,9 +24,16 @@ def about():
     return render_template("about.html")
 
 
-@app.route("/contact")
+@app.route("/contact", methods=["GET", "POST"])
 def contact():
-    return render_template("contact.html")
+    if request.method == "POST":
+        data = request.form
+        print(data["name"])
+        print(data["email"])
+        print(data["phone"])
+        print(data["message"])
+        return render_template("contact.html", msg_sent=True)
+    return render_template("contact.html", msg_sent=False)
 
 
 @app.route("/<int:index>")
@@ -36,3 +43,6 @@ def show_post(index):
         if item.id == index:
             requested_post = item
     return render_template("post.html", post=requested_post)
+
+
+
