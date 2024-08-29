@@ -1,9 +1,18 @@
+import os
+import smtplib
+
+from dotenv import load_dotenv
 from flask import Flask, render_template, request
 import requests
 from posts import Post
 
-app = Flask(__name__)
+load_dotenv()
+SENDER = os.environ["EMAIL"]
+PASSWORD = os.environ["PASSWORD"]
+RECEIVER = os.environ["TO"]
+
 URL = "https://api.npoint.io/998f66f97685dbd14659"
+app = Flask(__name__)
 
 post_objs = []
 post = requests.get(url=URL).json()
@@ -28,10 +37,7 @@ def about():
 def contact():
     if request.method == "POST":
         data = request.form
-        print(data["name"])
-        print(data["email"])
-        print(data["phone"])
-        print(data["message"])
+        mail(data["name"], data["email"], data["phone"], data["message"])
         return render_template("contact.html", msg_sent=True)
     return render_template("contact.html", msg_sent=False)
 
@@ -45,4 +51,9 @@ def show_post(index):
     return render_template("post.html", post=requested_post)
 
 
-
+def mail(name, email, phone, message):
+    email_msg = f"Subject: New Message\n\nName: {name}\nEmail: {email}\nPhone: {phone}\nMessage: {message}"
+    with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
+        connection.starttls()
+        connection.login(SENDER, PASSWORD)
+        connection.sendmail(from_addr=SENDER, to_addrs=RECEIVER, msg=email_msg)
