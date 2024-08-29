@@ -11,7 +11,7 @@ for post in posts:
 app = Flask(__name__)
 
 
-@app.route('/blog')
+@app.route('/blog ')
 def get_all_posts():
     return render_template("index.html", all_posts=post_objects)
 
